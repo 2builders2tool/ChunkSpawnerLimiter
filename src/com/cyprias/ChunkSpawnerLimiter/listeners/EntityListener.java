@@ -46,7 +46,7 @@ public class EntityListener implements Listener {
 			for (int x = c.getX() + surrounding; x >= (c.getX() - surrounding); x--) {
 				for (int z = c.getZ() + surrounding; z >= (c.getZ() - surrounding); z--) {
 					// Logger.debug("Checking chunk " + x + " " +z);
-					WorldListener.CheckChunk(w.getChunkAt(x, z));
+					e.setCancelled(WorldListener.CheckChunk(w.getChunkAt(x, z)));
 				}
 			}
 
