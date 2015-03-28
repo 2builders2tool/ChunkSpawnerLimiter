@@ -54,7 +54,7 @@ public class Plugin extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new WorldListener(), this);
 
 		//Start Mob GC Task
-		getServer().getScheduler().runTaskTimer(this, new MobGarbageCollectionTask(), 0L, 10 * 20L);
+		getServer().getScheduler().runTaskTimer(this, new MobGarbageCollectionTask(), 0L, 120 * 20L);
 		
 		// Start the Metrics.
 		if (Config.getBoolean("properties.use-metrics"))
