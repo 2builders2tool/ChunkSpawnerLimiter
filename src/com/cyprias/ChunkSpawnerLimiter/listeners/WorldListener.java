@@ -119,7 +119,7 @@ public class WorldListener implements Listener {
 			// entry.getValue().size());
 			//Logger.debug("mobs (" + eType + "): " + entry.getValue().size() + " limit: " + limit);
 
-			if (entry.getValue().size() > limit) {
+			if (entry.getValue().size() >= limit) {
 				/*Logger.debug("Removing " + (entry.getValue().size() - limit) + " " + eType + " @ " + c.getX() + " " + c.getZ());
 
 				if (Config.getBoolean("properties.notify-players")){
