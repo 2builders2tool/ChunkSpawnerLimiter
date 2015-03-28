@@ -37,7 +37,11 @@ public class EntityListener implements Listener {
 
 		Chunk c = e.getLocation().getChunk();
 
-		WorldListener.CheckChunk(c);
+		if (WorldListener.CheckChunk(c)) {
+			//Logger.debug("checkchunk");
+			e.setCancelled(true);
+			return;
+		}
 
 		int surrounding = Config.getInt("properties.check-surrounding-chunks");
 
@@ -46,7 +50,11 @@ public class EntityListener implements Listener {
 			for (int x = c.getX() + surrounding; x >= (c.getX() - surrounding); x--) {
 				for (int z = c.getZ() + surrounding; z >= (c.getZ() - surrounding); z--) {
 					// Logger.debug("Checking chunk " + x + " " +z);
-					e.setCancelled(WorldListener.CheckChunk(w.getChunkAt(x, z)));
+					if (WorldListener.CheckChunk(w.getChunkAt(x, z))) {
+						//Logger.debug("checkchunks");
+						e.setCancelled(true);
+						return;
+					}
 				}
 			}
 

@@ -21,6 +21,8 @@ import com.cyprias.ChunkSpawnerLimiter.Logger;
 import com.cyprias.ChunkSpawnerLimiter.Plugin;
 import com.cyprias.ChunkSpawnerLimiter.compare.MobGroupCompare;
 
+import javax.swing.*;
+
 public class WorldListener implements Listener {
 	HashMap<Chunk, Integer> chunkTasks = new HashMap<Chunk, Integer>();
 
@@ -82,7 +84,7 @@ public class WorldListener implements Listener {
 	public static boolean CheckChunk(Chunk c) {
         // Stop processing quickly if this world is excluded from limits.
 		if (Config.getStringList("excluded-worlds").contains(c.getWorld().getName())) {
-            return true;
+            return false;
         }
 		
 		Entity[] ents = c.getEntities();
@@ -115,6 +117,7 @@ public class WorldListener implements Listener {
 
 			// Logger.debug(c.getX() + " " + c.getZ() + ": " + eType + " = " +
 			// entry.getValue().size());
+			//Logger.debug("mobs (" + eType + "): " + entry.getValue().size() + " limit: " + limit);
 
 			if (entry.getValue().size() > limit) {
 				/*Logger.debug("Removing " + (entry.getValue().size() - limit) + " " + eType + " @ " + c.getX() + " " + c.getZ());
@@ -134,12 +137,14 @@ public class WorldListener implements Listener {
 				}*/
 
 				Logger.debug("Mob limit reached, preventing mob spawn.");
-				return false;
+				return true;
 
 			}
+			//Logger.debug("SAPWN ALLOWED: mobs (" + eType + "): " + entry.getValue().size() + " limit: " + limit);
 
 		}
-		return true;
+
+		return false;
 
 	}
 	
