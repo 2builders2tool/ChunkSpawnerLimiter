@@ -79,10 +79,10 @@ public class WorldListener implements Listener {
 	
 	
 
-	public static void CheckChunk(Chunk c) {
+	public static boolean CheckChunk(Chunk c) {
         // Stop processing quickly if this world is excluded from limits.
 		if (Config.getStringList("excluded-worlds").contains(c.getWorld().getName())) {
-            return;
+            return true;
         }
 		
 		Entity[] ents = c.getEntities();
@@ -117,7 +117,7 @@ public class WorldListener implements Listener {
 			// entry.getValue().size());
 
 			if (entry.getValue().size() > limit) {
-				Logger.debug("Removing " + (entry.getValue().size() - limit) + " " + eType + " @ " + c.getX() + " " + c.getZ());
+				/*Logger.debug("Removing " + (entry.getValue().size() - limit) + " " + eType + " @ " + c.getX() + " " + c.getZ());
 
 				if (Config.getBoolean("properties.notify-players")){
 					for (int i = ents.length - 1; i >= 0; i--) {
@@ -131,11 +131,15 @@ public class WorldListener implements Listener {
 
 				for (int i = entry.getValue().size() - 1; i >= limit; i--) {
 					entry.getValue().get(i).remove();
-				}
+				}*/
+
+				Logger.debug("Mob limit reached, preventing mob spawn.");
+				return false;
 
 			}
 
 		}
+		return true;
 
 	}
 	
