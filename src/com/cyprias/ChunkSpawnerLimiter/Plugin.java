@@ -5,9 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
+import com.cyprias.ChunkSpawnerLimiter.tasks.MobGarbageCollectionTask;
 import org.bukkit.Location;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.mcstats.Metrics;
 
 import com.cyprias.ChunkSpawnerLimiter.listeners.EntityListener;
@@ -50,6 +52,9 @@ public class Plugin extends JavaPlugin {
 		// Register our event listener.
 		getServer().getPluginManager().registerEvents(new EntityListener(), this);
 		getServer().getPluginManager().registerEvents(new WorldListener(), this);
+
+		//Start Mob GC Task
+		getServer().getScheduler().runTaskTimer(this, new MobGarbageCollectionTask(), 0L, 10 * 20L);
 		
 		// Start the Metrics.
 		if (Config.getBoolean("properties.use-metrics"))
